@@ -1,5 +1,5 @@
 ## AI Assistant
-This project aims to provide an AI-powered code review assistant that can help you improve your code quality. The assistant utilizes  to analyze your code, identify areas for improvement, and provide suggestions for enhancements.
+This project aims to provide an AI-powered code review assistant that can help you improve your code quality. The assistant utilizes LLM from Ollama to analyze your code, identify areas for improvement, and provide suggestions for enhancements.
 
 ## Requirements
 
