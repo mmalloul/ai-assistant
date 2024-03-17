@@ -1,9 +1,9 @@
-# AI Code Review Chat
-
-This is a code review app that utilizes AI to provide insights and suggestions for your code. 
-
+## AI Assistant
+This project aims to provide an AI-powered code review assistant that can help you improve your code quality. The assistant utilizes  to analyze your code, identify areas for improvement, and provide suggestions for enhancements.
 
 ## Requirements
+
+To use the AI Assistant, make sure you have the following requirements installed:
 
 - Python 3.11.8 or lower (Torch is not compatible with newer versions)
 - Virtual environment with pip (Important to not cause dependency conflicts)
@@ -11,24 +11,30 @@ This is a code review app that utilizes AI to provide insights and suggestions f
 
 ## Installation
 
-1. Download the Ollama from the Ollama website and follow the installation instructions. https://ollama.com/
+1. Clone the project:
 
-2. Pull codellama
+    ```shell
+    git clone https://github.com/mmalloul/ai-code-reviewer.git
+    cd ai-code-reviewer
+    ```
+
+2. Download the Ollama from the Ollama website and follow the installation instructions: [Ollama website](https://ollama.com/)
+
+3. Pull codellama:
 
     ```shell
     ollama pull codellama
     ```
 
-3. Create and activate a virtual environment:
+4. Create and activate a virtual environment:
 
     ```shell
-    pip install virtualenv
     python -m venv env
     source env/bin/activate  # For Linux/Mac
     env\Scripts\activate  # For Windows
     ```
 
-4. Install the required dependencies:
+5. Install the required dependencies:
 
     ```shell
     pip install -r requirements.txt
@@ -36,22 +42,16 @@ This is a code review app that utilizes AI to provide insights and suggestions f
 
 ## Configuration
 
-1. Open the `app.py` file.
+1. Open the `config.py` file.
 
-2. Locate the following lines of code:
+2. You can configure the default values for the model, timeout, and system prompt in this file:
 
-    ```python
-    SYSTEM_PROMPT = """
-    As Bob, your AI code review assistant, you will show code examples to code that needs improvement and explain why its better.
-    """
-    MODEL = "codellama"
-    ```
-
-3. Change the `SYSTEM_PROMPT` to your desired system prompt.
-
-4. You can change the `MODEL` to any Ollama model if needed.
-
-5. You can change `TIMEOUT` to the desired prompt timeout.
+    - `DEFAULT_MODEL`: The default AI model to be used for code review (e.g., 'codellama').
+    
+    - `DEFAULT_TIMEOUT`: The default timeout value (in seconds) for prompting AI responses.
+    
+    - `DEFAULT_SYSTEM_PROMPT`: The default prompt that guides the AI in providing code review suggestions. This prompt should provide instructions and expectations for the AI code review assistant.
+   
 
 ## How to run
 
@@ -60,4 +60,6 @@ This is a code review app that utilizes AI to provide insights and suggestions f
     ```shell
     streamlit run app.py
     ```
+
+## Example
 ![Image Description](example.png)
