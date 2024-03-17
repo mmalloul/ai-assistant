@@ -1,5 +1,5 @@
 ## AI Assistant
-This project aims to provide an AI-powered code review assistant that can help you improve your code quality. The assistant utilizes LLM from Ollama to analyze your code, identify areas for improvement, and provide suggestions for enhancements.
+This project aims to provide an AI-powered assistant that can for example, help you review your code. The assistant utilizes a language model from Ollama to run your prompt. You can download any Ollama model, but I've set it to codellama by default for now. Feel free to pull any model you like from their website :)
 
 ## Requirements
 
@@ -14,8 +14,8 @@ To use the AI Assistant, make sure you have the following requirements installed
 1. Clone the project:
 
     ```shell
-    git clone https://github.com/mmalloul/ai-code-reviewer.git
-    cd ai-code-reviewer
+    git clone https://github.com/mmalloul/ai-assistant.git
+    cd ai-assistant
     ```
 
 2. Download the Ollama from the Ollama website and follow the installation instructions: [Ollama website](https://ollama.com/)
