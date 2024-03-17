@@ -1,53 +1,43 @@
 import streamlit as st
 from llama_index.llms.ollama import Ollama
 from llama_index.core.llms import ChatMessage
+from config import DEFAULT_MODEL, DEFAULT_TIMEOUT, DEFAULT_SYSTEM_PROMPT
 
-SYSTEM_PROMPT = """
-As Bob, your AI code review assistant, you will show code examples to code that needs improvement and explain why its better.:
+st.title("AI Assistant")
 
-- SOLID Principles: Ensure your code follows principles like Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion. If there are violations, suggest alternatives with clear code examples.
-- Design Patterns: Identify common design patterns like Factory, Singleton, Observer, and Strategy. If applicable, recommend incorporating these patterns into the codebase with relevant examples.
-- Cleanliness of Code: Evaluate readability, maintainability, and adherence to coding standards. If improvements are needed, suggest cleaner alternatives and provide code snippets as examples.
-- Security Considerations: Address potential vulnerabilities and suggest best practices for security. Offer code examples that demonstrate secure coding techniques and explain their importance.
-"""
+# Sidebar for configuration options
+st.sidebar.title("Configuration")
+model = st.sidebar.text_input("Model", value=DEFAULT_MODEL)
+timeout = st.sidebar.number_input("Timeout (seconds)", min_value=1, value=DEFAULT_TIMEOUT)
+system_prompt = st.sidebar.text_area("System Prompt", value=DEFAULT_SYSTEM_PROMPT, height=200)
 
-MODEL = 'codellama'
-TIMEOUT = 120
+# Initialize Ollama with user-specified configurations
+llm = Ollama(model=model, request_timeout=timeout)
 
-st.title("AI Code reviewer")
-st.write(f"Model: {MODEL}")
-
-if "llm_model" not in st.session_state:
-    st.session_state["llm_model"] = MODEL
-
-llm = Ollama(model=st.session_state["llm_model"], request_timeout=TIMEOUT)
-
-if "llm_model" not in st.session_state:
-    st.session_state["llm_model"] = MODEL
-
+# System prompt
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    st.session_state.messages.append(ChatMessage(role="system", content=SYSTEM_PROMPT))
+    st.session_state.messages.append(ChatMessage(role="system", content=system_prompt))
 
+# Display chat history
 for message in st.session_state.messages:
     if message.role == "system":
         continue
     with st.chat_message(message.role):
         st.markdown(message.content)
 
-if prompt := st.chat_input("What can I review for you?", disabled=not input):
+# Input field for user prompt
+if prompt := st.chat_input("What can I do for you?", disabled=not input):
     st.session_state.messages.append(ChatMessage(role="user", content=prompt))
 
     with st.chat_message("user"):
         st.markdown(prompt)
 
-
-    with st.spinner("Reviewing Code..."):
+    with st.spinner("Analyzing..."):
         response = llm.chat(
-        model=st.session_state["llm_model"],
-        messages=st.session_state.messages
+            model=model,
+            messages=st.session_state.messages
         )
-    
         content = response.message.content
-    st.markdown(content)     
+    st.markdown(content)
     st.session_state.messages.append(ChatMessage(role="assistant", content=content))
