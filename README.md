@@ -1,6 +1,10 @@
 ## AI Assistant
 This project aims to provide an AI-powered assistant that can for example, help you review your code. The assistant utilizes a language model from Ollama to run your prompt. You can download any Ollama model, but I've set it to codellama by default for now. Feel free to pull any model you like from their website :)
 
+## Changelog
+
+The changelog for this project is available [here](CHANGELOG.md).
+
 ## Requirements
 
 To use the AI Assistant, make sure you have the following requirements installed:
