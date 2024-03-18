@@ -1,7 +1,7 @@
-## [1.1.1] - 2024-03-17
+## [1.1.1] - 2024-03-18
 
 ### Added
-- New Clear Chat' history button
+- New 'Clear Chat History' button
  
 ## [1.1.0] - 2024-03-17
 
