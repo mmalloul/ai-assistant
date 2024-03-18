@@ -1,5 +1,5 @@
 ## AI Assistant
-This project aims to provide an AI-powered assistant that can for example, help you review your code. The assistant utilizes a language model from Ollama to run your prompt. You can download any Ollama model, but I've set it to codellama by default for now. Feel free to pull any model you like from their website :)
+This project aims to provide an AI-powered assistant that can for example, help you review your code. The assistant utilizes a language model from Ollama to run your prompt. You can download any Ollama model, but I've set it to codellama by default for now. Feel free to pull any model you like from their [website](https://ollama.com/library) :)
 
 ## Changelog
 
@@ -12,6 +12,7 @@ To use the AI Assistant, make sure you have the following requirements installed
 - Python 3.11.8 or lower (Torch is not compatible with newer versions)
 - Virtual environment with pip (Important to not cause dependency conflicts)
 - Other dependencies listed in `requirements.txt`
+- Ollama needs be running in the background for the models to work
 
 ## Installation
 
