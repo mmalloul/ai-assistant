@@ -10,6 +10,7 @@ st.sidebar.title("Configuration")
 model = st.sidebar.text_input("Model", value=DEFAULT_MODEL)
 timeout = st.sidebar.number_input("Timeout (seconds)", min_value=1, value=DEFAULT_TIMEOUT)
 system_prompt = st.sidebar.text_area("System Prompt", value=DEFAULT_SYSTEM_PROMPT, height=200)
+st.sidebar.button("Clear Chat History", on_click=lambda: st.session_state.pop("messages", None))
 
 # Initialize Ollama with user-specified configurations
 llm = Ollama(model=model, request_timeout=timeout)
