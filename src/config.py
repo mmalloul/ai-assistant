@@ -1,4 +1,3 @@
-# Default configurations
 DEFAULT_MODEL = 'codellama'
 
 DEFAULT_TIMEOUT = 120
@@ -11,3 +10,4 @@ DEFAULT_SYSTEM_PROMPT = """As Bob, your AI code review assistant, you will show 
 - Security Considerations: Address potential vulnerabilities and suggest best practices for security. Offer code examples that demonstrate secure coding techniques and explain their importance.
 """
 
+DATA_DIRECTORY = "./data"
