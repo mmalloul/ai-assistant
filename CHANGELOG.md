@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.0] - 2024-03-20
+
+### Added
+- Added a new feature where you can feed documents to the LLM to analyse.
+
 ## [1.1.2] - 2024-03-18
 
 ### Changed
