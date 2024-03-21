@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.3] - 2024-03-21
+
+### Fixed
+- Fixed a bug where the configuration menu didn't work anymore and added an `Apply` button to set the config.
+
 ## [1.2.2] - 2024-03-21
 
 ### Changed
