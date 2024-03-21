@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.2] - 2024-03-21
+
+### Changed
+- Changed the README example image to a current version
+
 ## [1.2.1] - 2024-03-21
 
 ### Changed
