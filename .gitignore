@@ -5,3 +5,4 @@ env/
 .env
 chroma_db
 data
+database

@@ -49,7 +49,8 @@ Follow these steps to set up the AI Assistant:
 
 ### Optional Data Directory Setup
 
-To analyze documents, you need to create a `data` folder in the project's root directory or specify a custom path in `config.py`. If done correctly, it will notify you that it's indexing the files on startup.
+To analyze documents, you need to create a `data` folder in the project's root directory or specify a custom path in `config.py`. If done correctly, it will notify you that it's indexing the files on startup. **Keep in mind that the size of the directory can have impact on the speed of the application.**
+
 This directory will be used to store and index documents for analysis:
 
 1. Create a `data` folder in the root of your cloned repository:
@@ -60,6 +61,7 @@ This directory will be used to store and index documents for analysis:
     (Optional) To use a custom directory, update the `DATA_DIRECTORY` variable in `config.py` with your chosen path.
 
 2. Add documents you want the LLM to analyse to the `data` (or your custom) directory. 
+
 ## Configuration
 
 Adjust your setup in the `config.py` file:

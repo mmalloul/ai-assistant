@@ -1,6 +1,8 @@
 torch
 llama-index
 llama-index-llms-ollama
+llama-index-vector-stores-chroma
 llama-index-embeddings-huggingface
 streamlit
 watchdog
+chromadb
