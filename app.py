@@ -38,10 +38,17 @@ st.session_state.get('chat_engine').display_chat_history()
 prompt = st.chat_input("What can I do for you?", disabled=not input)
 
 if prompt:
-    with st.chat_message("user"):
-        st.markdown(prompt)
+    chat_engine: ChatEngine = st.session_state.get('chat_engine')
 
-    response_content = st.session_state.get('chat_engine').chat(prompt)
+    if chat_engine:
+        chat_engine.append_to_chat_history("user", prompt)
 
-    with st.chat_message("assistant"):
-        st.markdown(response_content)
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        stream = chat_engine.chat(prompt)
+
+        with st.chat_message("assistant"):
+            content = st.write_stream(stream)
+
+        chat_engine.append_to_chat_history("assistant", content)

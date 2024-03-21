@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.4] - 2024-03-21
+
+### Added
+- Added a stream to the chat response and some code cleanup
+
 ## [1.2.3] - 2024-03-21
 
 ### Fixed
