@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.1] - 2024-03-21
+
+### Changed
+- Code clean up and added type annotation
+
 ## [1.2.0] - 2024-03-20
 
 ### Added
