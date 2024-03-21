@@ -19,7 +19,9 @@ def initialize_database() -> StorageContext:
         st.success("Database initialized successfully!")
     except Exception as e:
         st.error("Failed to initialize the database. Please check the system logs.")
-        raise e
+        st.error(e)
+        return None
+
 
     return storage_context
 
@@ -34,8 +36,12 @@ def load_and_index_documents(storage_context: StorageContext = None) -> VectorSt
     with st.spinner("Indexing documents... Please wait."):
         documents = SimpleDirectoryReader(DATA_DIRECTORY, recursive=True).load_data()
         if documents:
-            index = VectorStoreIndex.from_documents(documents, storage_context=storage_context if storage_context else StorageContext.from_defaults())
-            st.success("Indexing complete!")
-            return index
-        
+            if storage_context:
+                index: VectorStoreIndex = VectorStoreIndex.from_documents(documents, storage_context=storage_context)
+                st.info("Indexing complete!")
+                return index
+            else:
+                index: VectorStoreIndex = VectorStoreIndex.from_documents(documents)
+                st.info("No storage context found. Created index without storage context.")
+                return index
     return None

@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-from typing import List
+from typing import List, Generator
 from llama_index.core import Settings
 from llama_index.core.llms import ChatMessage
 from llama_index.llms.ollama import Ollama
@@ -25,24 +25,20 @@ class ChatEngine:
         else:
             return None
 
-    def chat(self, message: str) -> str:
-        self.append_to_chat_history("user", message)
-        
-        content = "Unable to process your request."
-        
+    def chat(self, message: str) -> Generator[str, None, None]:    
         try:
             with st.spinner("Analyzing..."):
                 if self.index:
-                    response = self.index.as_chat_engine().chat(message=message, chat_history=self.chat_history)
-                    content = response.response
+                    response = self.index.as_chat_engine().stream_chat(message=message, chat_history=self.chat_history)
+                    stream = response.response_gen
                 else:
-                    response = self.llm.chat(messages=self.chat_history)
-                    content = response.message.content
+                    response = self.llm.stream_chat(messages=self.chat_history)
+    
+                    return self.stream_response(response)
         except Exception as e:
             st.error(f"An error occurred: {e}")
-        
-        self.append_to_chat_history("assistant", content)
-        return content
+
+        return stream
 
     def append_to_chat_history(self, role: str, content: str) -> None:
         self.chat_history.append(ChatMessage(role=role, content=content))
@@ -56,3 +52,7 @@ class ChatEngine:
     def clear_chat_history(self) -> None:
         self.chat_history = [ChatMessage(role="system", content=self.system_prompt)]
         st.success("Chat history cleared.")
+
+    def stream_response(self, response):
+        for r in response:
+            yield r.delta
