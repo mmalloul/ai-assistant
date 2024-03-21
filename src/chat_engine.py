@@ -1,20 +1,21 @@
 import os
 import streamlit as st
 from typing import List
-from llama_index.core import Settings, VectorStoreIndex
+from llama_index.core import Settings
 from llama_index.core.llms import ChatMessage
 from llama_index.llms.ollama import Ollama
 from src.db_operations import initialize_database, load_and_index_documents
 
-from src.config import MODEL, TIMEOUT, SYSTEM_PROMPT, DATA_DIRECTORY
+from src.config import MODEL, TIMEOUT, DATA_DIRECTORY, SYSTEM_PROMPT
 
 class ChatEngine:
-    def __init__(self, model: str = MODEL, timeout: int = TIMEOUT):
+    def __init__(self, model: str = MODEL, timeout: int = TIMEOUT, system_prompt: str = SYSTEM_PROMPT):
         Settings.embed_model = "local"
         self.llm = Ollama(model=model, request_timeout=timeout)
         Settings.llm = self.llm
-        
-        self.chat_history: List[ChatMessage] = [ChatMessage(role="system", content=SYSTEM_PROMPT)]
+
+        self.system_prompt = system_prompt
+        self.chat_history: List[ChatMessage] = [ChatMessage(role="system", content=self.system_prompt)]
         self.index = self.init_index()
 
     def init_index(self):
@@ -33,10 +34,10 @@ class ChatEngine:
             with st.spinner("Analyzing..."):
                 if self.index:
                     response = self.index.as_chat_engine().chat(message=message, chat_history=self.chat_history)
-                    content = response.response if hasattr(response, 'response') else content
+                    content = response.response
                 else:
                     response = self.llm.chat(messages=self.chat_history)
-                    content = getattr(response.message, 'content', content)
+                    content = response.message.content
         except Exception as e:
             st.error(f"An error occurred: {e}")
         
@@ -53,5 +54,5 @@ class ChatEngine:
                     st.markdown(message.content)
 
     def clear_chat_history(self) -> None:
-        self.chat_history = [ChatMessage(role="system", content=SYSTEM_PROMPT)]
+        self.chat_history = [ChatMessage(role="system", content=self.system_prompt)]
         st.success("Chat history cleared.")
