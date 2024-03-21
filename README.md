@@ -66,10 +66,10 @@ This directory will be used to store and index documents for analysis:
 
 Adjust your setup in the `config.py` file:
 
-- `DEFAULT_MODEL`: Sets the default AI model (e.g., 'codellama') for operations.
-- `DEFAULT_TIMEOUT`: Specifies the default timeout in seconds for AI processing.
-- `DEFAULT_SYSTEM_PROMPT`: Establishes the initial instructions for the AI, guiding its responses and actions.
-- `DEFAULT_DATA_DRECTORY`: The path to the directory where documents are stored for analysis. By default, this is set to a `data` folder in the project root. Customize this path if needed.
+- `MODEL`: Sets the default AI model (e.g., 'codellama') for operations.
+- `TIMEOUT`: Specifies the default timeout in seconds for AI processing.
+- `SYSTEM_PROMPT`: Establishes the initial instructions for the AI, guiding its responses and actions.
+- `DATA_DRECTORY`: The path to the directory where documents are stored for analysis. By default, this is set to a `data` folder in the project root. Customize this path if needed.
 
 ## Running the Application
 
