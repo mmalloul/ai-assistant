@@ -25,16 +25,22 @@ class ChatEngine:
         else:
             return None
 
-    def chat(self, message: str) -> Generator[str, None, None]:    
+    def chat(self, message: str) -> Generator[str, None, None] | str:    
         try:
-            with st.spinner("Analyzing..."):
-                if self.index:
-                    response = self.index.as_chat_engine().stream_chat(message=message, chat_history=self.chat_history)
-                    stream = response.response_gen
-                else:
-                    response = self.llm.stream_chat(messages=self.chat_history)
-    
-                    return self.stream_response(response)
+            self.append_to_chat_history(role="user", content=message)
+
+            # if self.index:
+            #     stream = self.index.as_query_engine().query(message)
+            # else:
+            response = self.llm.stream_chat(messages=self.chat_history)
+
+            stream = self.stream_response(response)
+            
+            content = ""
+            for r in response:
+                content += r.message.content + "\n"
+
+            self.append_to_chat_history(role="assistant", content=content)
         except Exception as e:
             st.error(f"An error occurred: {e}")
 
@@ -43,16 +49,13 @@ class ChatEngine:
     def append_to_chat_history(self, role: str, content: str) -> None:
         self.chat_history.append(ChatMessage(role=role, content=content))
 
-    def display_chat_history(self) -> None:
-        for message in self.chat_history:
-            if message.role != "system":
-                with st.chat_message(message.role):
-                    st.markdown(message.content)
-
     def clear_chat_history(self) -> None:
         self.chat_history = [ChatMessage(role="system", content=self.system_prompt)]
         st.success("Chat history cleared.")
 
+    def get_chat_history(self) -> List[ChatMessage]:
+        return self.chat_history
+    
     def stream_response(self, response):
         for r in response:
             yield r.delta
