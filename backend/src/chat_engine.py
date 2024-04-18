@@ -1,61 +1,36 @@
-import os
-import streamlit as st
-from typing import List, Generator
-from llama_index.core import Settings
-from llama_index.core.llms import ChatMessage
-from llama_index.llms.ollama import Ollama
-from src.db_operations import initialize_database, load_and_index_documents
+from typing import List
+from enum import Enum
+from llama_index.core.llms import ChatMessage, ChatResponse
 
-from src.config import MODEL, TIMEOUT, DATA_DIRECTORY, SYSTEM_PROMPT
+from src.config import SYSTEM_PROMPT
+
+class MessageRole(Enum):
+    USER = "user"
+    SYSTEM = "system"
+    ASSISTANT = "assistant"
 
 class ChatEngine:
-    def __init__(self, model: str = MODEL, timeout: int = TIMEOUT, system_prompt: str = SYSTEM_PROMPT):
-        Settings.embed_model = "local"
-        self.llm = Ollama(model=model, request_timeout=timeout)
-        Settings.llm = self.llm
-
+    def __init__(self, llm, system_prompt: str = SYSTEM_PROMPT):
+        self.llm = llm
         self.system_prompt = system_prompt
-        self.chat_history: List[ChatMessage] = [ChatMessage(role="system", content=self.system_prompt)]
-        self.index = self.init_index()
+        self.chat_history: List[ChatMessage] = [ChatMessage(role=MessageRole.SYSTEM.value, content=self.system_prompt)]
 
-    def init_index(self):
-        if os.path.exists(DATA_DIRECTORY) and os.listdir(DATA_DIRECTORY):
-            storage_context = initialize_database()
-            return load_and_index_documents(storage_context)
-        else:
-            return None
-
-    def chat(self, message: str) -> Generator[str, None, None] | str:    
+    def chat(self, prompt: str) -> ChatResponse:
+        self.append_to_chat_history(role=MessageRole.USER.value, content=prompt)
         try:
-            self.append_to_chat_history(role="user", content=message)
-
-            # if self.index:
-            #     stream = self.index.as_query_engine().query(message)
-            # else:
-            response = self.llm.stream_chat(messages=self.chat_history)
-
-            stream = self.stream_response(response)
-            
-            content = ""
-            for r in response:
-                content += r.message.content + "\n"
-
-            self.append_to_chat_history(role="assistant", content=content)
+            response = self.llm.chat(messages=self.chat_history)
+            self.append_to_chat_history(role=MessageRole.ASSISTANT.value, content=response.message.content)
+            return response
         except Exception as e:
-            st.error(f"An error occurred: {e}")
-
-        return stream
-
+            print(f"Failed to process chat message: {str(e)}")  
+            raise ValueError("Failed to process the chat message.")
+        
+            
     def append_to_chat_history(self, role: str, content: str) -> None:
         self.chat_history.append(ChatMessage(role=role, content=content))
 
     def clear_chat_history(self) -> None:
-        self.chat_history = [ChatMessage(role="system", content=self.system_prompt)]
-        st.success("Chat history cleared.")
+        self.chat_history = [ChatMessage(role=MessageRole.SYSTEM.value, content=self.system_prompt)]
 
     def get_chat_history(self) -> List[ChatMessage]:
         return self.chat_history
-    
-    def stream_response(self, response):
-        for r in response:
-            yield r.delta
