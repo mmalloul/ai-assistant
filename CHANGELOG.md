@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.3.0] - 2024-04-28
+
+### Changed
+- Split the backend from the streamlit app into a FAST API
+- Seperated the index query from chat
+- Code clean up and file structure
+
+### Added
+- Lang TextManger for UI text
+- Streamlit pages for query and chat
+
 ## [1.2.4] - 2024-03-21
 
 ### Added

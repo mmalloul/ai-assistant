@@ -6,3 +6,4 @@ llama-index-embeddings-huggingface
 streamlit
 watchdog
 chromadb
+python-dotenv
