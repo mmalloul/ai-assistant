@@ -69,11 +69,17 @@ Modify settings in the `config.py` file as needed:
 
 ## Running the Application
 
-Launch the AI Assistant using the following command:
-
+Launch streamlit frontend using the following command:
 ```shell
-streamlit run app.py
+cd app
+streamlit run app/app.py
 ```
 
+Launch the backend using the following command:
+```shell
+cd .. # if you are not in the root of the project
+cd backend
+python main.py
+```
 ## Example
-![Image Description](example.png)
+![Example](image.png)
