@@ -1,64 +1,31 @@
-import requests
 import streamlit as st
-from enum import Enum
-import time
-from llama_index.core.llms import ChatMessage, ChatResponse
 
-class MessageRole(Enum):
-    USER = "user"
-    SYSTEM = "system"
-    ASSISTANT = "assistant"
+def main():
+    """Main application entrypoint."""
 
-def fetch_chat_history():
-    response = requests.get("http://localhost:8080/chat_history/")
-    if response.status_code == 200:
-        return response.json().get("history", [])
-    else:
-        st.error("Failed to load chat history.")
-        return []
+    st.set_page_config(page_title="AI Assistant", layout="wide")
+
+    # Setting up the sidebar with navigation and app information
+    st.sidebar.title("Navigation")
+    st.sidebar.info("""
+    Welcome to the AI Assistant app! Use the navigation menu to access different functionalities:
     
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = fetch_chat_history()
+    - **Chat**: Engage in real-time conversations with an AI. Ask questions, seek advice, or explore topics in an interactive format.
+    - **Query**: Utilize indexed data to perform specific queries. Ideal for extracting precise information or executing tasks based on the available datasets. Ensure files are properly indexed for optimal querying performance.
     
-def update_chat_history(): 
-    st.session_state.chat_history = fetch_chat_history()
-    
-def clear_chat_history():
-    requests.post("http://localhost:8080/clear_chat/")
-    st.session_state.chat_history = []
+    Select a page from the top left menu to begin.
+    """)
 
+    # Main page introduction
+    st.title("Welcome to the AI Assistant!")
+    st.write("""
+    This application demonstrates a range of AI-driven functionalities within a user-friendly web interface. 
+    Navigate through the sidebar to explore different interaction modes with AI technologies:
+    - The **Chat** interface offers a dynamic conversation experience where you can communicate directly with an AI.
+    - The **Query** interface allows you to leverage indexed data, enabling specific and structured data retrieval or task execution. Note: Proper file indexing is crucial for effective query performance.
+    """)
+    st.write("---")
+    st.write("Select a page from the sidebar to get started or continue browsing the available options.")
 
-st.title("AI Assistant")
-st.sidebar.title("Settings")
-st.sidebar.button("Clear Chat History", on_click=clear_chat_history)
-
-
-for message in st.session_state.chat_history:
-    update_chat_history()
-    if message['role'] != "system":
-        with st.chat_message(message['role']):
-            st.markdown(message['content'])
-
-
-def display_chat_message(role: str, content: str):
-    if role != MessageRole.SYSTEM.value:
-        with st.chat_message(role):
-            st.markdown(content)
-
-prompt = st.chat_input("What can I do for you?", disabled=not input)
-
-if prompt:
-        display_chat_message(MessageRole.USER.value, prompt)
-        with st.spinner("Analyzing your request..."):
-            start_time = time.time()
-            try:
-                response = requests.post("http://localhost:8080/chat/", json={"prompt": prompt})
-                response.raise_for_status()
-                chat_response = response.json()
-                end_time = time.time()
-                elapsed_time = end_time - start_time
-                st.success(f"Response received in {elapsed_time:.2f} seconds.")
-                display_chat_message(MessageRole.ASSISTANT.value, chat_response['message']['content'])
-            except Exception as e:
-                st.error(f"An error occurred: {e}")
-                print(f"An error occurred: {e}")
+if __name__ == "__main__":
+    main()
