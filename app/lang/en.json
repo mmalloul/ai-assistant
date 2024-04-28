@@ -1,0 +1,28 @@
+{
+    "sidebar": {
+        "settings": "Settings",
+        "choose_mode": "Choose mode:"
+    },
+    "modes": {
+        "chat": "Chat",
+        "query": "Query"
+    },
+    "titles": {
+        "main": "AI Assistant"
+    },
+    "context_help": {
+        "chat": "In Chat mode, you can interact with the AI as you would in a normal conversation. Type your questions or statements, and the AI will respond accordingly.",
+        "query": "In Query mode, you can submit specific queries for the AI to process. This is suitable for more structured or data-specific requests. Enter your queries, and the AI will attempt to provide a detailed answer."
+    },
+    "actions": {
+        "clear_chat_history": "Clear Chat History",
+        "what_can_i_do": "What can I do for you?",
+        "analyzing_request": "Analyzing your request...",
+        "response_received": "Response received in {time:.2f} seconds.",
+        "failed_response": "Failed to receive a response.",
+        "enter_query_here": "Enter your query here:",
+        "query_processed": "Query processed in {time:.2f} seconds.",
+        "failed_process_query": "Failed to process query.",
+        "submit_query": "Submit Query"
+    }
+}
