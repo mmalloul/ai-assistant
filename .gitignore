@@ -6,3 +6,5 @@ env/
 chroma_db
 data
 database
+.__pycache__
+.pytest_cache
