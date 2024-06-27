@@ -11,7 +11,7 @@ def main():
     Welcome to the AI Assistant app! Use the navigation menu to access different functionalities:
     
     - **Chat**: Engage in real-time conversations with an AI. Ask questions, seek advice, or explore topics in an interactive format.
-    - **Query**: Utilize indexed data to perform specific queries. Ideal for extracting precise information or executing tasks based on the available datasets. Ensure files are properly indexed for optimal querying performance.
+    - **Code Review**: Submit your code for AI analysis. The AI will review the code and provide feedback on potential improvements, issues, and best practices.
     
     Select a page from the top left menu to begin.
     """)
@@ -22,7 +22,7 @@ def main():
     This application demonstrates a range of AI-driven functionalities within a user-friendly web interface. 
     Navigate through the sidebar to explore different interaction modes with AI technologies:
     - The **Chat** interface offers a dynamic conversation experience where you can communicate directly with an AI.
-    - The **Query** interface allows you to leverage indexed data, enabling specific and structured data retrieval or task execution. Note: Proper file indexing is crucial for effective query performance.
+    - The **Code Review** interface allows you to submit your code for AI analysis, enabling specific and structured feedback on code quality and improvements.
     """)
     st.write("---")
     st.write("Select a page from the sidebar to get started or continue browsing the available options.")
