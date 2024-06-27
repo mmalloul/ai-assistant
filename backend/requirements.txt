@@ -1,0 +1,13 @@
+httpx
+fastapi
+pytest
+pytest-mock
+pydantic-settings
+python-multipart
+python-dotenv
+langchain
+langchain-aws
+langchain-openai
+langchain_community
+torch
+boto3
