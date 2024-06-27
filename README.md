@@ -35,7 +35,7 @@ Follow these steps to get started with the AI Assistant:
     ```shell
     python -m venv env
     source env/bin/activate  # For Linux/Mac
-    env\Scripts\activate.bat  # For Windows
+    env\Scripts\activate  # For Windows
     ```
 
 4. **Install Dependencies**:
@@ -43,43 +43,25 @@ Follow these steps to get started with the AI Assistant:
     pip install -r requirements.txt
     ```
 
-### Data Directory Setup for Query
-
-To enable document analysis functionalities, set up a `data` directory or specify a custom path:
-
-1. **Create a Data Folder**:
-    ```shell
-    cd backend
-    mkdir data
-    ```
-
-    - Optionally, update the `DATA_DIRECTORY` in `config.py` to a custom path if you prefer a different location.
-
-2. **Add Documents**:
-    Place the documents you want the LLM to analyze in the `data` directory or your custom location.
-
 ## Configuration
 
 Modify settings in the `config.py` file as needed:
 
-- `MODEL`: Define the AI model to use, default is 'codellama'.
-- `TIMEOUT`: Set the timeout in seconds for AI operations.
-- `SYSTEM_PROMPT`: Custom prompt to guide the AI's behavior.
-- `DATA_DIRECTORY`: Path to the directory for document storage and analysis.
+- `BACKEND_URL`: LLM Backend Micro Service
 
 ## Running the Application
 
 Launch streamlit frontend using the following command:
 ```shell
-cd app
-streamlit run app/app.py
+cd streamlit
+streamlit run app.py
 ```
 
 Launch the backend using the following command:
 ```shell
 cd .. # if you are not in the root of the project
 cd backend
-python main.py
+python -m app.main
 ```
 ## Example
 ![Example](image.png)

@@ -1,0 +1,28 @@
+{
+    "sidebar": {
+        "settings": "Settings",
+        "choose_mode": "Choose mode:"
+    },
+    "modes": {
+        "chat": "Chat",
+        "code_review": "Code Review"
+    },
+    "titles": {
+        "main": "AI Assistant"
+    },
+    "context_help": {
+        "chat": "In Chat mode, you can interact with the AI as you would in a normal conversation. Type your questions or statements, and the AI will respond accordingly.",
+        "code_review": "In Code Review mode, you can submit your code for review. The AI will analyze your code and provide feedback on potential improvements, issues, and best practices."
+    },
+    "actions": {
+        "clear_chat_history": "Clear Chat History",
+        "what_can_i_do": "What can I do for you?",
+        "analyzing_request": "Analyzing your request...",
+        "response_received": "Response received in {time:.2f} seconds.",
+        "failed_response": "Failed to receive a response.",
+        "enter_query_here": "Enter your code here:",
+        "query_processed": "Query processed in {time:.2f} seconds.",
+        "failed_process_query": "Failed to process code review.",
+        "submit_query": "Submit Code for Review"
+    }
+}
